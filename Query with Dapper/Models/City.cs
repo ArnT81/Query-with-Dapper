@@ -6,4 +6,10 @@
         public string? Name { get; set; }
         public int Population { get; set; }
     }
+
+    public class CityDetails: City
+    {
+        public string? CountryCode { get; set; }
+        public string? District { get; set; }
+    }
 }

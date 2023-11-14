@@ -16,7 +16,21 @@ namespace Query_with_Dapper.DataAccess
         }
 
 
-        public List<City> GetCities(string code)
+        public CityDetails GetCityById(int id)
+        {
+            CityDetails city = new CityDetails();
+            string q = "SELECT * FROM city WHERE Id = @id";
+
+            using (var connection = new MySqlConnection(ConnectionString))
+            {
+                city = connection.QueryFirst<CityDetails>(q, new { Id = id });
+            }
+
+            return city;
+        }
+
+
+        public List<City> GetCitiesByCountrycode(string code)
         {
             string q = "SELECT Id, Name, Population FROM city WHERE countrycode = @countrycode";
 

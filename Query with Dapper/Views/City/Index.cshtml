@@ -1,0 +1,17 @@
+﻿@model List<City>
+
+@{
+    ViewData["Title"] = "Cities Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+
+    <table class="table">
+        <tr> <th>Name</th> </tr>
+        @foreach (City city in @Model)
+        {
+            <tr class='clickable-row' data-href='Details/@city.Id'> <td>@city.Name</td> </tr>
+        }
+    </table>
+</div>

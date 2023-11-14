@@ -1,0 +1,30 @@
+﻿@model CityDetails
+
+@{
+    ViewData["Title"] = "Cities Page";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <button class="btn btn-primary back">Go back</button>
+
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>CountryCode</th>
+            <th>District</th>
+            <th>Population</th>
+        </tr>
+        <tr>
+            <td>@Model.Id</td>
+            <td>@Model.Name</td>
+            <td>@Model.CountryCode</td>
+            <td>@Model.District</td>
+            <td>@Model.Population</td>
+        </tr>
+    </table>
+</div>

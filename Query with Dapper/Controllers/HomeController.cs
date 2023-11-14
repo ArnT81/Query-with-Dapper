@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Query_with_Dapper.DataAccess;
 using Query_with_Dapper.Models;
 using System.Diagnostics;
 
@@ -16,8 +15,7 @@ namespace Query_with_Dapper.Controllers
 
         public IActionResult Index()
         {
-            List<City> cityList = new CityQuery().GetCities("NLD");
-            return View(cityList);
+            return View();
         }
 
         public IActionResult Privacy()
