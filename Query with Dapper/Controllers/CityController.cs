@@ -22,6 +22,16 @@ namespace Query_with_Dapper.Controllers
             return View(city);
         }
 
+
+
+        public ActionResult Test()
+        {
+            List<CityDetails> cityList = new CityQuery().GetCityByPopulation(100, 10000);
+            return View(cityList);
+        }
+
+
+
         // GET: CityController/Create
         public ActionResult Create()
         {

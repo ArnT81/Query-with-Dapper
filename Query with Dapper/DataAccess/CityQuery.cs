@@ -1,6 +1,9 @@
 ﻿using Dapper;
 using MySqlConnector;
+using Newtonsoft.Json.Linq;
 using Query_with_Dapper.Models;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Query_with_Dapper.DataAccess
 {
@@ -20,23 +23,45 @@ namespace Query_with_Dapper.DataAccess
         {
             CityDetails city = new CityDetails();
             string q = "SELECT * FROM city WHERE Id = @id";
-
-            using (var connection = new MySqlConnection(ConnectionString))
+            try
             {
-                city = connection.QueryFirst<CityDetails>(q, new { Id = id });
+
+                using (var connection = new MySqlConnection(ConnectionString))
+                {
+                    city = connection.QueryFirst<CityDetails>(q, new { id });
+                }
             }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
 
             return city;
         }
 
-
-        public List<City> GetCitiesByCountrycode(string code)
+        public List<CityDetails> GetCityByPopulation(int min, int max)
         {
-            string q = "SELECT Id, Name, Population FROM city WHERE countrycode = @countrycode";
+            List<CityDetails> cities = new List<CityDetails>();
+            string q = "SELECT * FROM city WHERE population BETWEEN @min AND @max ";
 
             using (var connection = new MySqlConnection(ConnectionString))
             {
-                Cities = connection.Query<City>(q, new { countrycode = code }).ToList();
+                cities = connection.Query<CityDetails>(q, new { min, max }).ToList();
+            }
+
+            return cities;
+        }
+
+
+
+        public List<City> GetCitiesByCountrycode(string countrycode)
+        {
+            string q = "SELECT Id, Name FROM city WHERE countrycode = @countrycode";
+
+            using (var connection = new MySqlConnection(ConnectionString))
+            {
+                Cities = connection.Query<City>(q, new { countrycode }).ToList();
             }
 
             return Cities;
