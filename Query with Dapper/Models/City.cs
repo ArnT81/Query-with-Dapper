@@ -1,4 +1,6 @@
-﻿namespace Query_with_Dapper.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Query_with_Dapper.Models
 {
     public class City
     {
@@ -7,7 +9,7 @@
         public int Population { get; set; }
     }
 
-    public class CityDetails: City
+    public class CityDetails : City
     {
         public string? CountryCode { get; set; }
         public string? District { get; set; }

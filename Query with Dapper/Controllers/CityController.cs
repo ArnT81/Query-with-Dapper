@@ -9,7 +9,7 @@ namespace Query_with_Dapper.Controllers
         // GET: CityController
         public ActionResult Index()
         {
-            List<City> cityList = new CityQuery().GetCitiesByCountrycode("NLD");
+            List<City> cityList = new CityQuery().GetCitiesByCountrycode("SWE");
 
             return View(cityList);
         }
@@ -35,16 +35,20 @@ namespace Query_with_Dapper.Controllers
         // GET: CityController/Create
         public ActionResult Create()
         {
-            return View();
+            CityDetails city = new CityDetails();
+
+            return View(city);
         }
 
         // POST: CityController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        //public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(CityDetails model)
         {
             try
             {
+                new CityQuery().CreateCity(model.Name, model.Population, model.CountryCode, model.District);
                 return RedirectToAction(nameof(Index));
             }
             catch

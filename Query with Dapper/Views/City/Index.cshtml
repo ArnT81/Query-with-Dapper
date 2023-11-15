@@ -11,7 +11,12 @@
         <tr> <th>Name</th> </tr>
         @foreach (City city in @Model)
         {
-            <tr class='clickable-row' data-href='Details/@city.Id'> <td>@city.Name</td> </tr>
+            @* WRONG JS way to do it *@
+            <tr class='clickable-row' data-href='Details/@city.Id'>
+                <td>@city.Name</td>
+                @* CORRECT C# way to do it *@
+                <td> @Html.ActionLink("Details", "Details", new { id=city.Id }) </td>
+            </tr>
         }
     </table>
 </div>

@@ -66,5 +66,30 @@ namespace Query_with_Dapper.DataAccess
 
             return Cities;
         }
+
+
+        public CityDetails CreateCity(string name, int population, string countryCode, string district)
+        {
+            CityDetails city = new CityDetails();
+            string q = "INSERT INTO city (Name, Population, CountryCode, District)" +
+                       "VALUES(@name, @population, @countryCode, @district)";
+
+
+            
+
+            try
+            {
+                using (var connection = new MySqlConnection(ConnectionString))
+                {
+                    city = connection.QueryFirst<CityDetails>(q, new { name, population, countryCode, district });
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return city;
+        }
     }
 }
