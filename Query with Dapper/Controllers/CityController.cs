@@ -10,15 +10,14 @@ namespace Query_with_Dapper.Controllers
         public ActionResult Index()
         {
             List<City> cityList = new CityQuery().GetCitiesByCountrycode("SWE");
-
             return View(cityList);
         }
+
 
         // GET: CityController/Details/5
         public ActionResult Details(int id)
         {
             CityDetails city = new CityQuery().GetCityById(id);
-
             return View(city);
         }
 
@@ -31,12 +30,10 @@ namespace Query_with_Dapper.Controllers
         }
 
 
-
         // GET: CityController/Create
         public ActionResult Create()
         {
             CityDetails city = new CityDetails();
-
             return View(city);
         }
 

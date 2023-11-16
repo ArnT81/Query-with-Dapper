@@ -43,7 +43,7 @@ namespace Query_with_Dapper.DataAccess
         public List<CityDetails> GetCityByPopulation(int min, int max)
         {
             List<CityDetails> cities = new List<CityDetails>();
-            string q = "SELECT * FROM city WHERE population BETWEEN @min AND @max ";
+            string q = "SELECT * FROM city WHERE population BETWEEN @min AND @max";
 
             using (var connection = new MySqlConnection(ConnectionString))
             {
@@ -52,6 +52,21 @@ namespace Query_with_Dapper.DataAccess
 
             return cities;
         }
+
+
+        public List<CityDetails> GetCityWithLimitation(int limit)
+        {
+            List<CityDetails> cities = new List<CityDetails>();
+            string q = "SELECT * FROM city LIMIT @limit";
+
+            using (var connection = new MySqlConnection(ConnectionString))
+            {
+                cities = connection.Query<CityDetails>(q, new { limit }).ToList();
+            }
+
+            return cities;
+        }
+
 
 
 
@@ -68,14 +83,36 @@ namespace Query_with_Dapper.DataAccess
         }
 
 
+
+
+
+
+
+        public List<CityDetails> GetCitiesInEuropeByLifeExpectancy()
+        {
+            List<CityDetails> cities = new List<CityDetails>();
+            string q = "SELECT Id, Name FROM city WHERE countrycode = @countrycode";
+
+            using (var connection = new MySqlConnection(ConnectionString))
+            {
+                cities = connection.Query<CityDetails>(q).ToList();
+            }
+
+            return cities;
+        }
+
+
+
+
+
+
+
+
         public CityDetails CreateCity(string name, int population, string countryCode, string district)
         {
             CityDetails city = new CityDetails();
             string q = "INSERT INTO city (Name, Population, CountryCode, District)" +
                        "VALUES(@name, @population, @countryCode, @district)";
-
-
-            
 
             try
             {

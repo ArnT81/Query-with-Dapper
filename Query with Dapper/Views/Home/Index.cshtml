@@ -4,5 +4,36 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>to my page Assignment – Query with Dapper</p>
+
+
+    <div>
+        <div class="row form-group pt-4 border m-2">
+
+            <div class="col-4">
+                <select id="select_category">
+                    @foreach (var item in ViewBag.Assignments)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-4">
+                For dynamic values if I have time
+            </div>
+
+        </div>
+
+        <div class="border">
+
+
+        <div class="content">RESPONSE</div>
+        </div>
+
+
+    </div>
+    @section scripts {
+        <script src="~/js/home.js" asp-append-version="true"></script>
+    }
 </div>
+
