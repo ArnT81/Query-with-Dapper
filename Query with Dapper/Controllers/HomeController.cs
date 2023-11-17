@@ -1,17 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Query_with_Dapper.DataAccess;
 using Query_with_Dapper.Models;
-using System.Collections.Generic;
-using System;
 using System.Diagnostics;
-using System.Linq.Expressions;
-using System.Runtime.Intrinsics.X86;
-using Microsoft.Extensions.Hosting;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using Microsoft.CodeAnalysis.Elfie.Serialization;
-using System.Diagnostics.Metrics;
-using Humanizer;
 
 namespace Query_with_Dapper.Controllers
 {
@@ -61,7 +51,6 @@ namespace Query_with_Dapper.Controllers
         }
 
 
-        //TODO GET ALL DATA 
         public List<City> OptionalAssignment2()
         {
             //Read all cities by country code.
@@ -69,12 +58,6 @@ namespace Query_with_Dapper.Controllers
             return cityList;
         }
 
-
-
-
-
-
-        //NOT DONE YET
 
         public List<CityDetails> OptionalAssignment3()
         {
@@ -84,10 +67,10 @@ namespace Query_with_Dapper.Controllers
         }
 
 
-        public List<CityDetails> OptionalAssignment4()
+        public List<City> OptionalAssignment4()
         {
             //Read all cities in a country.
-            List<CityDetails> cityList = new CityQuery().GetCityByPopulation(500, 1000);
+            List<City> cityList = new CityQuery().GetCityByCountry("NOR");
             return cityList;
         }
 
@@ -95,11 +78,9 @@ namespace Query_with_Dapper.Controllers
         public List<CityDetails> OptionalAssignment5()
         {
             //Read all cities in a continent with a life expectancy above a certain age.
-            List<CityDetails> cityList = new CityQuery().GetCityByPopulation(500, 1000);
+            List<CityDetails> cityList = new CityQuery().GetCityByContinentAndLifeExpectancy(80);
             return cityList;
         }
-
-
 
 
         public IActionResult Privacy()
