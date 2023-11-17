@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Query_with_Dapper.DataAccess;
 using Query_with_Dapper.Models;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Query_with_Dapper.Controllers
@@ -27,34 +28,37 @@ namespace Query_with_Dapper.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Assignments = Assignments;
-            return View();
+            List<int> between = new List<int>() { 1, 2 };
+            ViewBag.Between = between;
+
+            return View(Assignments);
         }
 
 
-        public List<CityDetails> Basic()
+        public List<CityDetails> Basic(int min, int max)
         {
             //Present a list of strongly typed city data for all cities in a span between two
             //population numbers.Use a view file(cshtml) for the presentation and use a
             //table for the data.
 
-            List<CityDetails> cityList = new CityQuery().GetCityByPopulation(500, 1000);
+            List<CityDetails> cityList = new CityQuery().GetCityByPopulation(min, max);
             return cityList;
         }
 
 
-        public List<CityDetails> OptionalAssignment1()
+        public List<CityDetails> OptionalAssignment1(int limit)
         {
+            Console.WriteLine(limit);
             //Limit the number of posts read.
-            List<CityDetails> cityList = new CityQuery().GetCityWithLimitation(10);
+            List<CityDetails> cityList = new CityQuery().GetCityWithLimitation(limit);
             return cityList;
         }
 
 
-        public List<City> OptionalAssignment2()
+        public List<City> OptionalAssignment2(string countrycode)
         {
             //Read all cities by country code.
-            List<City> cityList = new CityQuery().GetCitiesByCountrycode("SWE");
+            List<City> cityList = new CityQuery().GetCitiesByCountrycode(countrycode);
             return cityList;
         }
 
@@ -67,18 +71,18 @@ namespace Query_with_Dapper.Controllers
         }
 
 
-        public List<City> OptionalAssignment4()
+        public List<City> OptionalAssignment4(string countryName)
         {
             //Read all cities in a country.
-            List<City> cityList = new CityQuery().GetCityByCountry("NOR");
+            List<City> cityList = new CityQuery().GetCityByCountryName(countryName);
             return cityList;
         }
 
 
-        public List<CityDetails> OptionalAssignment5()
+        public List<CityDetails> OptionalAssignment5(string continent, int age)
         {
             //Read all cities in a continent with a life expectancy above a certain age.
-            List<CityDetails> cityList = new CityQuery().GetCityByContinentAndLifeExpectancy(80);
+            List<CityDetails> cityList = new CityQuery().GetCityByContinentAndLifeExpectancy(continent, age);
             return cityList;
         }
 

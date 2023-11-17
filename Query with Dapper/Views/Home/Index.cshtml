@@ -1,19 +1,19 @@
-﻿@{
+﻿@model List<Assignment>
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>to my page Assignment – Query with Dapper</p>
-
-
+ 
     <div>
         <div class="container">
             <div class="row">
                 <div class="col-sm">
                     <h4>Select assignment</h4>
                     <select id="select_category">
-                        @foreach (var item in ViewBag.Assignments)
+                        @foreach (var item in @Model)
                         {
                             <option value="@item.Id">@item.Name</option>
                         }
@@ -27,16 +27,16 @@
 
                 <div class="col-sm">
                     <h4>Optional input</h4>
+                    <div id="input_user"></div>
 
-                    For dynamic values if I have time
+                    <button class="btn btn-primary" id="submit">Submit new query</button>
                 </div>
             </div>
 
             <div class="border">
-                <div class="content">RESPONSE</div>
+                <table class="content table"></table>
             </div>
         </div>
-
 
     </div>
     @section scripts {

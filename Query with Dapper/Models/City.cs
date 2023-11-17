@@ -13,5 +13,6 @@ namespace Query_with_Dapper.Models
     {
         public string? CountryCode { get; set; }
         public string? District { get; set; }
+        public int? LifeExpectancy { get; set; }
     }
 }

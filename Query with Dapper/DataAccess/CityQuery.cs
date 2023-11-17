@@ -1,6 +1,8 @@
 ﻿using Dapper;
+using Humanizer;
 using MySqlConnector;
 using Query_with_Dapper.Models;
+using System.Xml.Linq;
 
 namespace Query_with_Dapper.DataAccess
 {
@@ -95,27 +97,27 @@ namespace Query_with_Dapper.DataAccess
 
 
         //NOT DONE
-        public List<City> GetCityByCountry(string countrycode)
+        public List<City> GetCityByCountryName(string countryName)
         {
-            string q = "SELECT Id, Name FROM city WHERE countrycode = @countrycode";
+            string q = "SELECT city.name FROM city INNER JOIN country ON city.countrycode = country.code where city.countrycode = (Select Code FROM country where Name = @countryName)";
 
             using (var connection = new MySqlConnection(ConnectionString))
             {
-                Cities = connection.Query<City>(q, new { countrycode }).ToList();
+                Cities = connection.Query<City>(q, new { countryName }).ToList();
             }
 
             return Cities;
         }
 
 
-        public List<CityDetails> GetCityByContinentAndLifeExpectancy(int percent)
+        public List<CityDetails> GetCityByContinentAndLifeExpectancy(string continent, int age)
         {
             //List<CityDetails> cities = new List<CityDetails>();
-            string q = "SELECT * FROM country WHERE Continent = \"Asia\" AND LifeExpectancy > @percent ORDER BY LifeExpectancy DESC;";
+            string q = "SELECT * FROM country WHERE Continent = @continent AND LifeExpectancy > @age ORDER BY LifeExpectancy DESC;";
 
             using (var connection = new MySqlConnection(ConnectionString))
             {
-                CityDetails = connection.Query<CityDetails>(q, new { percent }).ToList();
+                CityDetails = connection.Query<CityDetails>(q, new { continent, age }).ToList();
             }
 
             return CityDetails;
