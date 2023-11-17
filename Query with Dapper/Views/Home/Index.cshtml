@@ -8,26 +8,33 @@
 
 
     <div>
-        <div class="row form-group pt-4 border m-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <h4>Select assignment</h4>
+                    <select id="select_category">
+                        @foreach (var item in ViewBag.Assignments)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                </div>
 
-            <div class="col-4">
-                <select id="select_category">
-                    @foreach (var item in ViewBag.Assignments)
-                    {
-                        <option value="@item.Id">@item.Name</option>
-                    }
-                </select>
+                <div class="col-sm">
+                    <h4>Description</h4>
+                    <div class="description"></div>
+                </div>
+
+                <div class="col-sm">
+                    <h4>Optional input</h4>
+
+                    For dynamic values if I have time
+                </div>
             </div>
-            <div class="col-4">
-                For dynamic values if I have time
+
+            <div class="border">
+                <div class="content">RESPONSE</div>
             </div>
-
-        </div>
-
-        <div class="border">
-
-
-        <div class="content">RESPONSE</div>
         </div>
 
 
